@@ -2,8 +2,11 @@ package com.softserve.academy.model;
 
 import com.softserve.academy.exception.InvalidNotificationException;
 import com.softserve.academy.exception.NotDeliverableException;
+import lombok.Getter;
 
+@Getter
 public abstract class Notification implements Comparable<Notification> {
+    // Getters
     protected String recipient;
     protected String message;
     protected int priority;
@@ -12,8 +15,22 @@ public abstract class Notification implements Comparable<Notification> {
     public Notification(String recipient, String message, int priority) {
         // TODO: Базова валідація в конструкторі:
         // порожній отримувач -> InvalidNotificationException
+        if (recipient == null || recipient.isBlank()) {
+            throw new InvalidNotificationException("Recipient cannot be null or empty.");
+        }
         // порожнє повідомлення (null) -> InvalidNotificationException
+        if (message == null || message.isBlank()) {
+            throw new InvalidNotificationException("Message cannot be empty.");
+        }
         // priority від 1 до 5, інакше -> InvalidNotificationException
+        if (priority < PriorityCode.MIN.getPriorityCode() || priority > PriorityCode.MAX.getPriorityCode()) {
+            throw new InvalidNotificationException("Priority cannot be less then 1 or more than 5.");
+        }
+
+        this.recipient = recipient;
+        this.message = message;
+        this.priority = priority;
+        this.status = NotificationStatus.PENDING;
     }
 
     public abstract boolean isDeliverable();
@@ -24,6 +41,7 @@ public abstract class Notification implements Comparable<Notification> {
 
     public boolean isHighPriority() {
         // TODO: Пріоритет >= 4
+
         return false;
     }
 
@@ -43,9 +61,4 @@ public abstract class Notification implements Comparable<Notification> {
         return 0;
     }
 
-    // Getters
-    public String getRecipient() { return recipient; }
-    public String getMessage() { return message; }
-    public int getPriority() { return priority; }
-    public NotificationStatus getStatus() { return status; }
 }
