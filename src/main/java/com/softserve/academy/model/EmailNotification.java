@@ -11,8 +11,6 @@ public class EmailNotification extends Notification {
     private final String subject;
     private final boolean hasAttachment;
 
-    private static final int DEFAULT_DELIVERY_TIME_SECONDS = 30;
-
     public EmailNotification(String recipient, String message, int priority, String senderEmail, String subject, boolean hasAttachment) {
         super(recipient, message, priority);
 
@@ -27,7 +25,6 @@ public class EmailNotification extends Notification {
     }
 
     public boolean isSpam() {
-        //If we have 10 words? May be Stream...
         return subject.matches("(?i).*(free|win|click).*");
     }
 
@@ -38,14 +35,13 @@ public class EmailNotification extends Notification {
 
     @Override
     public int estimateDeliverySeconds() {
-        // DEFAULT_DELIVERY_TIME_SECONDS will need to be moved to a separate enum
-        return DEFAULT_DELIVERY_TIME_SECONDS;
+        return DeliveryTimeConfig.EMAIL.getDelivery();
     }
 
     @Override
     protected void performSend() {
         StringBuilder sb = new StringBuilder("Sending Email Notification from ");
-        sb.append(senderEmail).append("to ").append(getRecipient());
+        sb.append(senderEmail).append(" to ").append(getRecipient());
         System.out.println(sb);
     }
 

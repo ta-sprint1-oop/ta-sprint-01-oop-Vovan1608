@@ -12,13 +12,11 @@ public class SmsNotification extends Notification {
     private static final int MIN_DIGITS_AFTER_PLUS = 9;
     private static final int MAX_DIGITS_AFTER_PLUS = 14;
     private static final int MAX_MESSAGE_LENGTH = 160;
-    private static final int DEFAULT_DELIVERY_TIME_SECONDS = 5;
-
 
     public SmsNotification(String recipient, String message, int priority, String phoneNumber, boolean isFlash) {
         super(recipient, message, priority);
 
-        validatePhoneNumber(phoneNumber);
+        //validatePhoneNumber(phoneNumber);
 
         this.phoneNumber = phoneNumber;
         this.isFlash = isFlash;
@@ -42,7 +40,7 @@ public class SmsNotification extends Notification {
 
     @Override
     public int estimateDeliverySeconds() {
-        return DEFAULT_DELIVERY_TIME_SECONDS;
+        return DeliveryTimeConfig.SMS.getDelivery();
     }
 
     @Override
