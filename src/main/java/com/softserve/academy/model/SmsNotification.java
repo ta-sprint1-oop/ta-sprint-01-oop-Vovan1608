@@ -8,8 +8,8 @@ public class SmsNotification extends Notification {
     private final String phoneNumber;
     private final boolean isFlash;
 
-    private static final int MIN_PHONE_LENGTH = 9;
-    private static final int MAX_PHONE_LENGTH = 14;
+    private static final int MIN_DIGITS_AFTER_PLUS = 9;
+    private static final int MAX_DIGITS_AFTER_PLUS = 14;
     private static final int MAX_MESSAGE_LENGTH = 160;
     private static final int DEFAULT_DELIVERY_TIME_SECONDS = 5;
 
@@ -24,7 +24,7 @@ public class SmsNotification extends Notification {
     @Override
     public boolean isDeliverable() {
         // TODO: Номер починається з + і має довжину 10-15 символів
-        String regex = String.format("^\\+\\d{%d,%d}$", MIN_PHONE_LENGTH, MAX_PHONE_LENGTH);
+        String regex = String.format("^\\+\\d{%d,%d}$", MIN_DIGITS_AFTER_PLUS, MAX_DIGITS_AFTER_PLUS);
 
         return phoneNumber != null && phoneNumber.matches(regex);
     }
