@@ -24,7 +24,7 @@ public class EmailNotification extends Notification {
     @Override
     public boolean isDeliverable() {
         // TODO: Перевірка що email містить @ і .
-        return getRecipient().contains("@") && getRecipient().contains(".");
+        return getRecipient().matches("^[^@]+@[^@]+\\.[^@]+$");
     }
 
     public boolean isSpam() {
