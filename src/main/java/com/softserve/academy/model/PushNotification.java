@@ -8,7 +8,7 @@ public class PushNotification extends Notification {
     private final String deviceToken;
     private final String iconUrl;
 
-    private static final int MIN_DEVICE_TOKEN_LENGTH = 10;
+    private static final int MINIMUM_TOKEN_LENGTH = 10;
     private static final int DEFAULT_DELIVERY_TIME_SECONDS = 1;
 
     public PushNotification(String recipient, String message, int priority, String deviceToken, String iconUrl) {
@@ -21,8 +21,8 @@ public class PushNotification extends Notification {
     @Override
     public boolean isDeliverable() {
         // TODO: deviceToken не blank і довжина > 10
-        // MIN_DEVICE_TOKEN_LENGTH will need to be moved to a separate enum
-        return deviceToken != null && !deviceToken.isBlank() && deviceToken.length() > MIN_DEVICE_TOKEN_LENGTH;
+        // MINIMUM_TOKEN_LENGTH will need to be moved to a separate enum
+        return deviceToken != null && !deviceToken.isBlank() && deviceToken.length() > MINIMUM_TOKEN_LENGTH;
     }
 
     public boolean isSilent() {
