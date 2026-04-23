@@ -25,7 +25,7 @@ public class EmailNotification extends Notification {
     }
 
     public boolean isSpam() {
-        return getSubject().matches("(?i).*(free|win|click).*");
+        return getSubject() != null && getSubject().matches("(?i).*(free|win|click).*");
     }
 
     @Override
