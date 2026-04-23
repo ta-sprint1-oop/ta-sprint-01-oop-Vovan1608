@@ -15,7 +15,7 @@ public class EmailNotification extends Notification {
 
     public EmailNotification(String recipient, String message, int priority, String senderEmail, String subject, boolean hasAttachment) {
         super(recipient, message, priority);
-        // TODO: Ініціалізація додаткових полів
+
         this.senderEmail = senderEmail;
         this.subject = subject;
         this.hasAttachment = hasAttachment;
@@ -23,32 +23,27 @@ public class EmailNotification extends Notification {
 
     @Override
     public boolean isDeliverable() {
-        // TODO: Перевірка що email містить @ і .
         return getRecipient().matches("^[^@]+@[^@]+\\.[^@]+$");
     }
 
     public boolean isSpam() {
-        // TODO: Якщо subject містить "free", "win", "click" (case insensitive)
         //If we have 10 words? May be Stream...
         return subject.matches("(?i).*(free|win|click).*");
     }
 
     @Override
     public String getFormattedMessage() {
-        // TODO: Subject: {subject}\n{message}
         return String.format("Subject: %s\n%s", subject, getMessage());
     }
 
     @Override
     public int estimateDeliverySeconds() {
-        // TODO: 30
         // DEFAULT_DELIVERY_TIME_SECONDS will need to be moved to a separate enum
         return DEFAULT_DELIVERY_TIME_SECONDS;
     }
 
     @Override
     protected void performSend() {
-        // TODO: Симуляція відправки (println)
         StringBuilder sb = new StringBuilder("Sending Email Notification from ");
         sb.append(senderEmail).append("to ").append(getRecipient());
         System.out.println(sb);

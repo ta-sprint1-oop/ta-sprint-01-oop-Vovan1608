@@ -13,39 +13,34 @@ public class PushNotification extends Notification {
 
     public PushNotification(String recipient, String message, int priority, String deviceToken, String iconUrl) {
         super(recipient, message, priority);
-        // TODO: Ініціалізація додаткових полів
+
         this.deviceToken = deviceToken;
         this.iconUrl = iconUrl;
     }
 
     @Override
     public boolean isDeliverable() {
-        // TODO: deviceToken не blank і довжина > 10
         // MINIMUM_TOKEN_LENGTH will need to be moved to a separate enum
         return deviceToken != null && !deviceToken.isBlank() && deviceToken.length() > MINIMUM_TOKEN_LENGTH;
     }
 
     public boolean isSilent() {
-        // TODO: true якщо message порожнє (тільки тайтл)
         return message == null || message.isBlank();
     }
 
     @Override
     public String getFormattedMessage() {
-        // TODO: 🔔 {message} (якщо silent -> 🔔 (silent))
         return isSilent() ? "🔔 (silent)" : "🔔 " + message;
     }
 
     @Override
     public int estimateDeliverySeconds() {
-        // TODO: 1
         //DEFAULT_DELIVERY_TIME_SECONDS will need to be moved to a separate enum
         return DEFAULT_DELIVERY_TIME_SECONDS;
     }
 
     @Override
     protected void performSend() {
-        // TODO: Симуляція відправки (println)
         StringBuilder sb = new StringBuilder("The push notification sent to token: ");
         sb.append(deviceToken).append(" with icon: ").append(iconUrl).append(". Message: ").append(getFormattedMessage());
         System.out.println(sb);

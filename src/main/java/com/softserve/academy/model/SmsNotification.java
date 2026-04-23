@@ -1,7 +1,8 @@
 package com.softserve.academy.model;
 
-import com.softserve.academy.exception.NotDeliverableException;
 import lombok.Getter;
+
+import static com.softserve.academy.model.PhoneNumberValidator.*;
 
 @Getter
 public class SmsNotification extends Notification {
@@ -16,41 +17,38 @@ public class SmsNotification extends Notification {
 
     public SmsNotification(String recipient, String message, int priority, String phoneNumber, boolean isFlash) {
         super(recipient, message, priority);
-        // TODO: Ініціалізація додаткових полів
+
+        validatePhoneNumber(phoneNumber);
+
         this.phoneNumber = phoneNumber;
         this.isFlash = isFlash;
     }
 
     @Override
     public boolean isDeliverable() {
-        // TODO: Номер починається з + і має довжину 10-15 символів
         String regex = String.format("^\\+\\d{%d,%d}$", MIN_DIGITS_AFTER_PLUS, MAX_DIGITS_AFTER_PLUS);
 
         return phoneNumber != null && phoneNumber.matches(regex);
     }
 
     public boolean isOverLimit() {
-        // TODO: true якщо message > 160 символів
         return getMessage().length() > MAX_MESSAGE_LENGTH;
     }
 
     @Override
     public String getFormattedMessage() {
-        // TODO: Обрізає до 160 символів якщо довше
         return (getMessage().length() > MAX_MESSAGE_LENGTH) ? getMessage().substring(0, MAX_MESSAGE_LENGTH) : getMessage();
     }
 
     @Override
     public int estimateDeliverySeconds() {
-        // TODO: 5
         return DEFAULT_DELIVERY_TIME_SECONDS;
     }
 
     @Override
     protected void performSend() {
-        // TODO: Симуляція відправки (println)
         StringBuilder sb = new StringBuilder("Sending to: ");
-        sb.append(phoneNumber).append(" the message ").append(getMessage());
+        sb.append(phoneNumber).append(" the message ").append(getFormattedMessage());
         System.out.println(sb);
     }
 
