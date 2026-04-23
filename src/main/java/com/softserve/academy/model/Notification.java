@@ -32,7 +32,6 @@ public abstract class Notification implements Comparable<Notification> {
 
     public boolean isHighPriority() {
         // TODO: Пріоритет >= 4
-
         return this.priority >= PriorityCode.HIGH_PRIORITY.getPriorityCode();
     }
 

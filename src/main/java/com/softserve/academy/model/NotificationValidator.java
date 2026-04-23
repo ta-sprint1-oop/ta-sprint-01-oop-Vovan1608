@@ -8,7 +8,7 @@ public final class NotificationValidator {
             throw new InvalidNotificationException("The recipient cannot be null or empty.");
         }
 
-        if (message == null || message.isBlank()) {
+        if (message == null ) {
             throw new InvalidNotificationException("The message cannot be empty.");
         }
 
