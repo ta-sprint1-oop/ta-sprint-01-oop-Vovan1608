@@ -1,6 +1,5 @@
 package com.softserve.academy.model;
 
-import com.softserve.academy.exception.InvalidNotificationException;
 import com.softserve.academy.exception.NotDeliverableException;
 import lombok.Getter;
 
@@ -15,17 +14,9 @@ public abstract class Notification implements Comparable<Notification> {
     public Notification(String recipient, String message, int priority) {
         // TODO: Базова валідація в конструкторі:
         // порожній отримувач -> InvalidNotificationException
-        if (recipient == null || recipient.isBlank()) {
-            throw new InvalidNotificationException("Recipient cannot be null or empty.");
-        }
         // порожнє повідомлення (null) -> InvalidNotificationException
-        if (message == null || message.isBlank()) {
-            throw new InvalidNotificationException("Message cannot be empty.");
-        }
         // priority від 1 до 5, інакше -> InvalidNotificationException
-        if (priority < PriorityCode.MIN.getPriorityCode() || priority > PriorityCode.MAX.getPriorityCode()) {
-            throw new InvalidNotificationException("Priority cannot be less then 1 or more than 5.");
-        }
+        NotificationValidator.validateBaseFields(recipient, message, priority);
 
         this.recipient = recipient;
         this.message = message;
@@ -42,7 +33,7 @@ public abstract class Notification implements Comparable<Notification> {
     public boolean isHighPriority() {
         // TODO: Пріоритет >= 4
 
-        return false;
+        return this.priority >= PriorityCode.HIGH_PRIORITY.getPriorityCode();
     }
 
     public void send() throws NotDeliverableException {
@@ -51,6 +42,18 @@ public abstract class Notification implements Comparable<Notification> {
         // 2. Якщо !isDeliverable() -> статус FAILED та throw NotDeliverableException
         // 3. performSend()
         // 4. Успіх -> статус SENT
+        if (!isDeliverable()) {
+            this.status = NotificationStatus.FAILED;
+            throw new NotDeliverableException("The notification is not deliverable to: " + recipient);
+        }
+
+        try {
+            performSend();
+            this.status = NotificationStatus.SENT;
+        } catch (NotDeliverableException exc) {
+            this.status = NotificationStatus.FAILED;
+            throw exc;
+        }
     }
 
     protected abstract void performSend() throws NotDeliverableException;
@@ -58,7 +61,7 @@ public abstract class Notification implements Comparable<Notification> {
     @Override
     public int compareTo(Notification other) {
         // TODO: Сортування за priority descending
-        return 0;
+        return Integer.compare(other.priority, this.priority);
     }
 
 }

@@ -4,8 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum PriorityCode {
-    MIN(1),
-    MAX(5);
+    MIN_PRIORITY(1),
+    MAX_PRIORITY(5),
+    HIGH_PRIORITY(4);
 
     private final int priorityCode;
 
