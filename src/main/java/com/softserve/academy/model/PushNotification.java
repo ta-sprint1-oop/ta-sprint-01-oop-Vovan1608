@@ -28,7 +28,7 @@ public class PushNotification extends Notification {
 
     @Override
     public String getFormattedMessage() {
-        return isSilent() ? "🔔 (silent)" : "🔔 " + message;
+        return isSilent() ? "🔔 (silent)" : "🔔 " + getMessage();
     }
 
     @Override

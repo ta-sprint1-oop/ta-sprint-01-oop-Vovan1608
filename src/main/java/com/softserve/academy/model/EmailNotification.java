@@ -25,12 +25,12 @@ public class EmailNotification extends Notification {
     }
 
     public boolean isSpam() {
-        return subject.matches("(?i).*(free|win|click).*");
+        return getSubject().matches("(?i).*(free|win|click).*");
     }
 
     @Override
     public String getFormattedMessage() {
-        return String.format("Subject: %s\n%s", subject, getMessage());
+        return String.format("Subject: %s\n%s", getSubject(), getMessage());
     }
 
     @Override
@@ -41,7 +41,7 @@ public class EmailNotification extends Notification {
     @Override
     protected void performSend() {
         StringBuilder sb = new StringBuilder("Sending Email Notification from ");
-        sb.append(senderEmail).append(" to ").append(getRecipient());
+        sb.append(getSenderEmail()).append(" to ").append(getRecipient());
         System.out.println(sb);
     }
 

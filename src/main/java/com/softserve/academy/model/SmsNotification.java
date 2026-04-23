@@ -2,8 +2,6 @@ package com.softserve.academy.model;
 
 import lombok.Getter;
 
-import static com.softserve.academy.model.PhoneNumberValidator.*;
-
 @Getter
 public class SmsNotification extends Notification {
     private final String phoneNumber;
@@ -15,8 +13,6 @@ public class SmsNotification extends Notification {
 
     public SmsNotification(String recipient, String message, int priority, String phoneNumber, boolean isFlash) {
         super(recipient, message, priority);
-
-        //validatePhoneNumber(phoneNumber);
 
         this.phoneNumber = phoneNumber;
         this.isFlash = isFlash;
