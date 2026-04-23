@@ -22,7 +22,7 @@ public class PushNotification extends Notification {
     public boolean isDeliverable() {
         // TODO: deviceToken не blank і довжина > 10
         // MIN_DEVICE_TOKEN_LENGTH will need to be moved to a separate enum
-        return !deviceToken.isBlank() && deviceToken.length() >= MIN_DEVICE_TOKEN_LENGTH;
+        return deviceToken != null && !deviceToken.isBlank() && deviceToken.length() > MIN_DEVICE_TOKEN_LENGTH;
     }
 
     public boolean isSilent() {

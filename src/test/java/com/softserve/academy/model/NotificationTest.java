@@ -96,10 +96,10 @@ class NotificationTest {
 
         // Test deliverability bounds for deviceToken
         assertFalse(new PushNotification("U", "M", 1, "token-9ch", "url").isDeliverable()); // 9 chars
-        //assertFalse(new PushNotification("U", "M", 1, "token-10ch", "url").isDeliverable()); // 10 chars
+        assertFalse(new PushNotification("U", "M", 1, "token-10ch", "url").isDeliverable()); // 10 chars
         assertTrue(new PushNotification("U", "M", 1, "token-11ch-", "url").isDeliverable()); // 11 chars
         assertFalse(new PushNotification("U", "M", 1, "", "url").isDeliverable());
-        //assertFalse(new PushNotification("U", "M", 1, null, "url").isDeliverable());
+        assertFalse(new PushNotification("U", "M", 1, null, "url").isDeliverable());
 
         push.send();
         assertEquals(NotificationStatus.SENT, push.getStatus());
