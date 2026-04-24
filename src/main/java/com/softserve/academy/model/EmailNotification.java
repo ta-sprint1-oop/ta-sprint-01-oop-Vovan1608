@@ -1,9 +1,6 @@
 package com.softserve.academy.model;
 
-import com.softserve.academy.exception.NotDeliverableException;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 public class EmailNotification extends Notification {

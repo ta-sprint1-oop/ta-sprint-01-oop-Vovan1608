@@ -1,6 +1,5 @@
 package com.softserve.academy.model;
 
-import com.softserve.academy.exception.NotDeliverableException;
 import lombok.Getter;
 
 @Getter
