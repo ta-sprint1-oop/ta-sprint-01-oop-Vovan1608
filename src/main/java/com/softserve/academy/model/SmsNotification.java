@@ -22,7 +22,7 @@ public class SmsNotification extends Notification {
     public boolean isDeliverable() {
         String regex = String.format("^\\+\\d{%d,%d}$", MIN_DIGITS_AFTER_PLUS, MAX_DIGITS_AFTER_PLUS);
 
-        return phoneNumber != null && phoneNumber.matches(regex);
+        return getPhoneNumber() != null && getPhoneNumber().matches(regex);
     }
 
     public boolean isOverLimit() {
@@ -42,7 +42,7 @@ public class SmsNotification extends Notification {
     @Override
     protected void performSend() {
         StringBuilder sb = new StringBuilder("Sending to: ");
-        sb.append(phoneNumber).append(" the message ").append(getFormattedMessage());
+        sb.append(getPhoneNumber()).append(" the message ").append(getFormattedMessage());
         System.out.println(sb);
     }
 
