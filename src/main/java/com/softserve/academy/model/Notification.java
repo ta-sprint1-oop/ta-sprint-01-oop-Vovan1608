@@ -33,7 +33,7 @@ public abstract class Notification implements Comparable<Notification> {
     public void send() throws NotDeliverableException {
         if (!isDeliverable()) {
             this.status = NotificationStatus.FAILED;
-            throw new NotDeliverableException("The notification is not deliverable to: " + recipient);
+            throw new NotDeliverableException("The notification is not deliverable to: " + getRecipient());
         }
 
         try {
