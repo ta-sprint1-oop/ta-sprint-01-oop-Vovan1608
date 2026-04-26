@@ -38,7 +38,7 @@ public class PushNotification extends Notification {
     @Override
     protected void performSend() {
         StringBuilder sb = new StringBuilder("The push notification sent to token: ");
-        sb.append(deviceToken).append(" with icon: ").append(iconUrl).append(". Message: ").append(getFormattedMessage());
+        sb.append(getDeviceToken()).append(" with icon: ").append(getIconUrl()).append(". Message: ").append(getFormattedMessage());
         System.out.println(sb);
     }
 
